@@ -4,12 +4,11 @@
 
 This repository contains the solutions for the SnowCrash project
 
-Please proceed with caution as the following content will reveal the password for this level
-
+Please proceed with caution as the following content will reveal the passwords
 
 If you are currently working on this project i strongly recommend that you only check this solution if you have been stuck for hours and have exhausted all other resources
 
-It's crucial to learn and grow from the challenges you face  so give it your best shot before looking at the solution
+It's crucial to learn and grow from the challenges you face so give it your best shot before looking at the solution
 **AD ASTRA PER ASPERA**
 
 
