@@ -84,5 +84,9 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 - chmod +x /var/tmp/echo
 
 - run the binary once again and see if it prints "EXPLOITED" this time
+>if it does, it sucessfully runs arbitrary code
+>add the command whoami, it should print flag03
+
 
 ## --- solved ---
+- add getflag command and get the token and move to level04
