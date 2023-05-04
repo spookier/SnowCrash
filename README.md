@@ -9,6 +9,7 @@ Please proceed with caution as the following content will reveal the passwords
 If you are currently working on this project I strongly recommend that you check a part of the solution to guide you in the right way **ONLY IF** you have been stuck for several hours
 
 My advice to you is this: whenever you're faced with a challenging problem, give yourself the time and space to work through it on your own
+
 Only seek help after you've exhausted all your options and remember the satisfaction you'll get from finding the solution yourself will far outweigh any temporary frustration or confusion you might experience along the way
 
  ~*AD ASTRA PER ASPERA*
