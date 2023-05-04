@@ -10,7 +10,7 @@ If you are currently working on this project i strongly recommend that you only 
 
 It's crucial to learn and grow from the challenges you face so give it your best shot before looking at the solution
 
-* The point is to help you develop some logic and acquire reflexes that will help
+*The point is to help you develop some logic and acquire reflexes that will help
 you all along your career. Before asking for help, ask yourself if you have factored in all
 the possibilities.*
 
