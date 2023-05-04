@@ -38,8 +38,6 @@ on local machine: virtualbox -> Network -> attached to : NAT -> Port Forwarding
 
 ---
 
-🛑 LOOK AT THE ANSWERS
-
 ### first level
 
 login:level00
