@@ -4,7 +4,7 @@
 - found executable 
 
 - once ran it asks to be exploited (uwu)
->so probably indentifying and exploiting a vulnerability like buffer overflow?
+>so probably reverse engineering then indentifying and exploiting a vulnerability
 
 
 # --- target research on system ---
@@ -25,6 +25,7 @@
 >nothing interesting..
 
 
+
 - lets intercept .dll calls with ltrace ./level03
 ```txt
 __libc_start_main(0x80484a4, 1, 0xbffff6e4, 0x8048510, 0x8048580 <unfinished ...>
@@ -38,10 +39,33 @@ system("/usr/bin/env echo Exploit me"Exploit me
 <... system resumed> )                                                                                     = 0
 ```
 - maybe system() function exploitable ?
-> this function is used to call a shell command (/usr/bin/env echo Exploit me)
-> 
+> this function is used to call a shell command (/usr/bin/env echo Exploit me) 
 
 
+- will use a disassembler now
+> scp the file to ur local machine and open it w ghidra or ida free
+
+- output of the main function of the binary
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int v4; // [esp+18h] [ebp-8h]
+  int v5; // [esp+1Ch] [ebp-4h]
+
+  v4 = getegid();
+  v5 = geteuid();
+  setresgid(v4, v4, v4);
+  setresuid(v5, v5, v5);
+  return system("/usr/bin/env echo Exploit me");
+}
+```
+> viewing this code in plain C made me recognize an angle of attack 
+
+> what " /usr/bin/env echo " does is search for the echo command in the directories listed in the PATH env variable
+> ```bash
+> /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+> ```
+> so replacing the path to the echo command to my own modified echo could be useful to escalate privilege but then again i dont have permissions to write my own code..
 
 
 
