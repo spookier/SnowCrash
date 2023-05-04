@@ -1,15 +1,19 @@
-# --- reconnaisance ---
+## Phase 1: Reconnaissance
 
-- ls -la
+Initial investigation involved listing the directory contents with `ls -la`
 
-- use scp command to transfer pcap file to local machine
-> depending on the way u configured access to ur VM scp command may vary
-> example: scp ./level02.pcap spxxky@192.xxx.x.xxx:/home/spxxky/Desktop/savehere
+A pcap file was identified and transferred to the local machine for inspection using the `scp` command:
 
-- found pcap file that needed to be inspected with wireshark
->follow -> TCP stream
+```bash
+scp ./level02.pcap spxxky@192.xxx.x.xxx:/home/spxxky/Desktop/savehere
+```
 
-- file contains:
+Note: The specific `scp` command may vary based on your VM access configuration
+
+The pcap file was then inspected using Wireshark, with the "Follow -> TCP Stream" function
+
+The contents included:
+
 ```txt
 >? Linux 2.6.38-8-generic-pae (::ffff:10.1.1.2) (pts/10)
 >
@@ -21,22 +25,27 @@
 >Login incorrect
 >wwwbugs login: 
 ```
-- lets try password found in packet
 
+Several potential passwords were identified and tested, but none were successful:
 
-- passwords didnt work
->ft_wandr
->ft_wandr...NDRel.L0L
->NDRel.L0L
+- `ft_wandr`
+- `ft_wandr...NDRel.L0L`
+- `NDRel.L0L`
 
-# --- target research on system ---
+---
 
-- trying to find files related to wwwbugs / www / bugs / ft_wandr
-- find / -iname "*wwwbugs*" 2>/dev/null
+## Phase 2: Target Research on System
 
-- nothing found 
+The search was extended to look for files related to the keywords "wwwbugs", "www", "bugs", and "ft_wandr"
 
-- back to wireshark to further inspect packet in Hexdump view
+```bash
+find / -iname "*wwwbugs*" 2>/dev/null
+```
+
+No relevant files were found...
+
+A return to Wireshark for further packet inspection in Hexdump view revealed the following:
+
 ```hex
 000000B9  66                                                 f
 000000BA  74                                                 t
@@ -60,8 +69,20 @@
 000000CC  4c                                                 L
 000000CD  0d                                                 .
 ```
-- found that 7f in hexa means delete and 0d enter
 
-## --- solved ---
+- I discovered that '7f' in hex represents a delete action and '0d' represents enter
 
-- password: ft_waNDReL0L
+> That means, '7f' deletes the last keystroke and '0d' confirms and sends the message
+
+---
+
+## Solved
+
+The deciphered password is provided below:
+
+<details>
+        <summary>Click to reveal password</summary>
+        ft_waNDReL0L
+</details>  
+
+

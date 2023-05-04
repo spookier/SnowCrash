@@ -1,44 +1,80 @@
 # SnowCrash
 
-## 🛑 WARNING 🛑
+## ☠️ 🚫  BEWARE, TARNISHED 🚫  ☠️
 
-This repository contains the solutions for the SnowCrash project
+This repository contains my thought process + the solutions for the SnowCrash project
 
-Please proceed with caution as the following content will reveal the passwords
-
-If you are currently working on this project i strongly recommend that you only check this solution if you have been stuck for hours and have exhausted all other resources
-
-It's crucial to learn and grow from the challenges you face so give it your best shot before looking at the solution
-
- ~**AD ASTRA PER ASPERA**
+*Please proceed with caution, for the secrets whispered in this domain unveil the sacred passwords...*
 
 
----
+## Before You Unravel the Enigma...
 
+Wait! Before you take a peek at the solutions in this repository, consider this:
 
-you can login to the VM in two different ways:
+Let me give you a word of wisdom: If you've been bashing your head against the problem for a couple hours, **THEN and ONLY THEN** are you allowed a little peek 
 
+Always seek help after you've exhausted all your options and remember the satisfaction you'll get from finding the solution yourself will far outweigh any temporary frustration or confusion you might experience along the way
 
-### - First method bridge networking
-
-on local machine: virtualbox -> Network -> attached to -> Bridged adapter
-
-on VM: ifconfig,find IP and use it like this with -p 4242
-
-#### ssh -p 4242 level00@192.xxx.x.xx
-
-
-
-
-### - Second method port forwarding
-
-on local machine: virtualbox -> Network -> attached to : NAT -> Port Forwarding
-
-#### 127.0.0.1 | 4242 | 10.0.2.15 | 4242 
+*So champion, summon your inner spirit, akin to the undying flame and venture once more into the enigmatic labyrinth that awaits...*
 
 ---
 
-### first level
 
-login:level00
-password:level00
+# Snowcrash VM Login Guide
+
+There are three different methods to log into the Snowcrash VM
+
+>If the first two methods fail or if you're using a school PC, use the third method
+
+## Method 1: Bridge Networking
+
+Firstly, configure your local machine:
+
+1. Go to VirtualBox
+2. Navigate to Network
+3. Set the network attachment to "Bridged adapter"
+
+Then, on your VM, run the command `ifconfig` to get the IP. Use the IP in the following way:
+
+```bash
+ssh -p 4242 level00@VM_IP
+```
+
+## Method 2: Port Forwarding
+
+Firstly, configure your local machine:
+
+1. Go to VirtualBox
+2. Navigate to Network
+3. Set the network attachment to "NAT"
+4. Set up Port Forwarding as follows:
+
+```bash
+SSH | TCP | 127.0.0.1 | 4242 | 10.0.2.15 | 4242 
+```
+
+## Method 3: Host-only Adapter (Alternative method)
+
+If the above methods don't work, follow these steps:
+
+1. Turn off VM if it's running
+2. On your local machine, go to VirtualBox -> Network
+3. Set the network attachment to "Host-only Adapter"
+4. Start the VM
+5. You should see an IP appearing now right on top of your input
+6. Use that IP to connect to it as follows:
+
+```bash
+ssh level00@VM_IP -p 4242
+```
+
+---
+
+# First Level Login
+
+To login to the first level, use the following credentials:
+
+Username: level00
+Password: level00
+
+---
