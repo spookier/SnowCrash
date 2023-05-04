@@ -12,7 +12,7 @@ My advice to you is this: whenever you're faced with a challenging problem, give
 
 Only seek help after you've exhausted all your options and remember the satisfaction you'll get from finding the solution yourself will far outweigh any temporary frustration or confusion you might experience along the way
 
- ~*AD ASTRA PER ASPERA*
+ ~ *AD ASTRA PER ASPERA*
 
 
 ---
