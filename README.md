@@ -1,6 +1,7 @@
 # SnowCrash
 
-🛑 WARNING 🛑
+## 🛑 WARNING 🛑
+
 This repository contains the solutions for the SnowCrash project
 
 Please proceed with caution as the following content will reveal the password for this level
