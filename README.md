@@ -27,7 +27,6 @@ on VM: ifconfig,find IP and use it like this with -p 4242
 
 #### ssh -p 4242 level00@192.xxx.x.xx
 
----
 
 ### - Second method port forwarding
 
