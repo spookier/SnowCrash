@@ -6,13 +6,14 @@ This repository contains the solutions for the SnowCrash project
 
 Please proceed with caution as the following content will reveal the passwords
 
-If you are currently working on this project i strongly recommend that you only check this solution if you have been stuck for hours and have exhausted all other resources
+If you are currently working on this project i strongly recommend that you only check a part of the solution to guide you in the right way ONLY if you have been stuck for several hours
 
-It's crucial to learn and grow from the challenges you face so give it your best shot before looking at the solution
+My advice to you is this: whenever you're faced with a challenging problem, give yourself the time and space to work through it on your own
+Only seek help after you've exhausted all your options and remember the satisfaction you'll get from finding the solution yourself will far outweigh any temporary frustration or confusion you might experience along the way
 
-*The point is to help you develop some logic and acquire reflexes that will help
-you all along your career. Before asking for help, ask yourself if you have factored in all
-the possibilities.*
+
+
+**
 
  ~**AD ASTRA PER ASPERA**
 
