@@ -3,7 +3,8 @@
 - ls -la
 
 - use scp command to transfer pcap file to local machine
-> example: scp /home/user/level02/level02.pcap spxxky@192.xxx.x.xxx:/home/spxxky/Desktop/savehere
+> depending on the way u configured access to ur VM scp command may vary
+> example: scp ./level02.pcap spxxky@192.xxx.x.xxx:/home/spxxky/Desktop/savehere
 
 - found pcap file that needed to be inspected with wireshark
 >follow -> TCP stream
