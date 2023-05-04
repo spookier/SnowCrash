@@ -6,7 +6,7 @@ This repository contains the solutions for the SnowCrash project
 
 Please proceed with caution as the following content will reveal the passwords
 
-If you are currently working on this project I strongly recommend that you check a part of the solution to guide you in the right way **ONLY IF** you have been stuck for several hours
+If you are currently working on this project I strongly recommend that you check a part of the solution to guide you in the right direction **ONLY IF** you have been stuck for several hours...
 
 My advice to you is this: whenever you're faced with a challenging problem, give yourself the time and space to work through it on your own
 
