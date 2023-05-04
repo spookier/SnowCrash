@@ -10,7 +10,7 @@ If you are currently working on this project i strongly recommend that you only 
 
 It's crucial to learn and grow from the challenges you face so give it your best shot before looking at the solution
 
-** ~AD ASTRA PER ASPERA**
+ ~**AD ASTRA PER ASPERA**
 
 
 ---
