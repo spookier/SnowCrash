@@ -6,7 +6,9 @@ This repository contains the solutions for the SnowCrash project
 
 Please proceed with caution as the following content will reveal the passwords
 
-Before you take a peek at the solution - HOLD UP! Let me give you a word of wisdom: If you've been bashing your head against the problem for a couple hours (or days, or months - no judgement here, time is a human construct), **THEN and ONLY THEN** are you allowed a little peek 
+Before you take a peek at the solution - HOLD UP! 
+
+Let me give you a word of wisdom: If you've been bashing your head against the problem for a couple hours (or days, or months - no judgement here, time is a human construct), **THEN and ONLY THEN** are you allowed a little peek 
 
 Only seek help after you've exhausted all your options and remember the satisfaction you'll get from finding the solution yourself will far outweigh any temporary frustration or confusion you might experience along the way
 
