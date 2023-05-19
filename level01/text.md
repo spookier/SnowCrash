@@ -30,4 +30,7 @@ flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
 
 # --- solved ---
 
-- password: abcdefg
+<details>
+        <summary>password</summary>
+         abcdefg
+    </details>  
