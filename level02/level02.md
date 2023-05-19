@@ -60,8 +60,11 @@
 000000CC  4c                                                 L
 000000CD  0d                                                 .
 ```
-- found that 7f in hexa means delete and 0d enter
+- found that '7f' in hexa means delete and '0d' enter
 
 ## --- solved ---
 
-- password: ft_waNDReL0L
+<details>
+        <summary>password</summary>
+         ft_waNDReL0L
+    </details>  
