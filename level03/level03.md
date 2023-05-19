@@ -89,4 +89,7 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 
 
 ## --- solved ---
-- add getflag command and get the token and move to level04
+<details>
+        <summary>solution</summary>
+         add getflag command and get the token and move to level04
+    </details>  
