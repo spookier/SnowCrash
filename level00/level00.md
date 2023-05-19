@@ -24,4 +24,7 @@
 
 # --- solved ---
 
->! - password: nottoohardhere
+<details>
+        <summary>password</summary>
+         nottoohardhere
+    </details>  
