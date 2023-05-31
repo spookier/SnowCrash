@@ -1,30 +1,34 @@
-# --- reconnaisance ---
+## Phase 1: Reconnaissance
 
-- whoami
-- ls -la
-- cat /etc/passwd | cut -d: -f1
-- pwd
-- search all my files on system with find / -user username -ls
-- groups
+The following commands were executed to gather initial information:
 
-~ nothing found here
+- `whoami` - To identify the current user
+- `ls -la` - To list all files in the current directory with detailed information
+- `cat /etc/passwd | cut -d: -f1` - To list all users in the system
+- `pwd` - To identify the current working directory
+- `find / -user username -ls` - To search for all files in the system owned by the user
+- `groups` - To list all groups the current user is a part of
+
+**Findings:** No significant discoveries were made in this phase
 
 ---
 
-# --- target research on system ---
+## Phase 2: Target Research on System
 
-~ searching for user didn't work lets try searching for the groups flag
+With the user search resulting in no results, the focus was shifted to the group `flag`
 
-- find / -user flag00 2> /dev/null
-> " 2> /dev/null " = redirects any error messages that occur during the search to the null device (/dev/null) so you dont get access denied errors spammed on screen
+- The command `find / -user flag00 2> /dev/null` was executed
+> The `2> /dev/null` portion redirects any error messages that occur during the search to the null device (`/dev/null`), preventing "access denied" errors from cluttering the screen
+- This search led to two paths containing weird text
+- The texts were entered into [dcode.fr](https://www.dcode.fr/cipher-) for cipher decryption, revealing a password
 
-- found two paths that lead to weird text
-- tried https://www.dcode.fr/cipher- on the texts and found password
+---
 
+## Solved
 
-# --- solved ---
+The discovered password is provided below:
 
 <details>
-        <summary>password</summary>
-         nottoohardhere
-    </details>  
+        <summary>Click to reveal password</summary>
+        nottoohardhere
+</details>  
