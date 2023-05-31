@@ -1,36 +1,44 @@
-# --- reconnaisance ---
+# Penetration Testing Report: Level01
 
-- whoami
-- ls -la
-- cat /etc/passwd | cut -d: -f1
-- pwd
-- search all my files on system with find / -user username -ls
-- groups
-- printenv
-- ls -l /etc/shadow
-> (no permissions)
+## Phase 1: Reconnaissance
 
+The following commands were executed to gather initial information:
 
+- `whoami` - To identify the current user
+- `ls -la` - To list all files in the current directory with detailed information
+- `cat /etc/passwd | cut -d: -f1` - To list all users in the system
+- `pwd` - To identify the current working directory
+- `find / -user username -ls` - To search for all files in the system owned by the user
+- `groups` - To list all groups the current user is a part of
+- `printenv` - To print all or part of the environment
+- `ls -l /etc/shadow` - To check the shadow file permissions (Access was denied)
 
-# --- target research on system ---
+---
 
-- find / -user level01
-- find / -user flag01
+## Phase 2: Target Research on System
 
-? (SSH_TTY=/dev/pts/0)
+The focus was directed towards user `level01` and group `flag01`:
 
-- cat /etc/passwd
-found something...
+- `find / -user level01` - To search for all files owned by user `level01`
+- `find / -user flag01` - To search for all files owned by user `flag01`
 
+The command `cat /etc/passwd` revealed an interesting entry:
+
+```
 flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
+```
 
-- use john the ripper to crack password with rockyou.txt wordlist
+John the Ripper was utilized to crack the encrypted password, using `rockyou.txt` as the wordlist
 
-- john the ripper successfully cracked the password
+The password was successfully cracked
 
-# --- solved ---
+---
+
+## Solved
+
+The cracked password is provided below:
 
 <details>
-        <summary>password</summary>
-         abcdefg
-    </details>  
+        <summary>Click to reveal password</summary>
+        abcdefg
+</details>  
