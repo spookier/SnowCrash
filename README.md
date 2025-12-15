@@ -21,8 +21,8 @@ This repository contains my thought process + the solutions for the SnowCrash pr
 
 3 - You can SSH to the VM now.
 
-``bash
-level00@127.0.0.1 -p 2222
+``
+ssh level00@127.0.0.1 -p 2222
 ``
 
 ---
