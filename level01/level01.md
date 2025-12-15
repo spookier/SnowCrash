@@ -42,5 +42,5 @@ echo "flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash" > password &&
 ```
 - The hash was successfully cracked, we get `abcdefg          (flag01)`
 - The complete hash is now `flag01:abcdefg:` instead of `flag01:42hDRfypTqqnw:`
-- We run `su flag01` and use this decrypted hash as password
+- We run `su flag01` and use this decrypted hash `abcdefg` as password for flag01
 
