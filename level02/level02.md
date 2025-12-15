@@ -1,52 +1,49 @@
 ## Phase 1: Reconnaissance
 
-Initial investigation involved listing the directory contents with `ls -la`
+As with previous levels, the first step was to inspect the current directory and identify any unusual files
 
-A pcap file was identified and transferred to the local machine for inspection using the `scp` command:
+- `ls -la` gives us a file named `level02.pcap`
+
+`.pcap ` is a **packet capture** file, suggesting that it can be opened with Wireshark
+
+To analyze it properly, we must first transfer the file to our local machine
 
 ```bash
-scp ./level02.pcap spxxky@192.xxx.x.xxx:/home/spxxky/Desktop/savehere
+scp -P 4242 level02@REPLACE_WITH_VM_IP:~/level02.pcap .
 ```
-
-Note: The specific `scp` command may vary based on your VM access configuration
-
-The pcap file was then inspected using Wireshark, with the "Follow -> TCP Stream" function
-
-The contents included:
-
-```txt
->? Linux 2.6.38-8-generic-pae (::ffff:10.1.1.2) (pts/10)
->
->..wwwbugs login: l.le.ev.ve.el.lX.X
->..
->Password: ft_wandr...NDRel.L0L
->.
->..
->Login incorrect
->wwwbugs login: 
-```
-
-Several potential passwords were identified and tested, but none were successful:
-
-- `ft_wandr`
-- `ft_wandr...NDRel.L0L`
-- `NDRel.L0L`
 
 ---
 
-## Phase 2: Target Research on System
+## Phase 2: Packet Analysis
 
-The search was extended to look for files related to the keywords "wwwbugs", "www", "bugs", and "ft_wandr"
+- We open the `.pcap` file with **Wireshark**
+- We click Follow -> PCP Stream
+- We get the following data:
+```txt
+Linux 2.6.38-8-generic-pae (::ffff:10.1.1.2) (pts/10)
 
-```bash
-find / -iname "*wwwbugs*" 2>/dev/null
+..wwwbugs login: l.le.ev.ve.el.lX.X
+..
+Password: ft_wandr...NDRel.L0L
+.
+..
+Login incorrect
+wwwbugs login: 
 ```
 
-No relevant files were found...
+We try several possible passwords from the data:
+```
+- ft_wandr
+- ft_wandr...NDRel.L0L
+- NDRel.L0L
+```
+- However, **none of these work**
+- To better understand the captured keystrokes we do a deeper analysis with hexdump
+- On Wireshark choose "Show data as Hex Dump"
 
-A return to Wireshark for further packet inspection in Hexdump view revealed the following:
 
 ```hex
+000000D6  00 0d 0a 50 61 73 73 77  6f 72 64 3a 20            ...Passw ord: 
 000000B9  66                                                 f
 000000BA  74                                                 t
 000000BB  5f                                                 _
@@ -70,19 +67,17 @@ A return to Wireshark for further packet inspection in Hexdump view revealed the
 000000CD  0d                                                 .
 ```
 
-- I discovered that '7f' in hex represents a delete action and '0d' represents enter
+### Interpretation
 
-> That means, '7f' deletes the last keystroke and '0d' confirms and sends the message
+- `0x7f` in Hex this means **Delete / Backspace**
+- `0x0d` in Hex this means **Enter / Submit**
 
+This means:
+- The user typed characters
+- Then deleted some of them (`7f`)
+- And finally submitted the corrected input (`0d`)
 ---
 
-## Solved
-
-The deciphered password is provided below:
-
-<details>
-        <summary>Click to reveal password</summary>
-        ft_waNDReL0L
-</details>  
-
-
+- By reconstructing the keystrokes we get the following:
+- `ft_waNDReL0L`
+- We use this as password to su into flag02 and getflag successfully
