@@ -81,3 +81,6 @@ This means:
 - By reconstructing the keystrokes we get the following:
 - `ft_waNDReL0L`
 - We use this as password to su into flag02 and getflag successfully
+
+
+- *In contrast, because this login uses an interactive terminal protocol like Telnet, every keypress is sent byte-by-byte through TCP... if this was SSH, the traffic would be encrypted and typically only the final line would be sent to the server, so this kind of reconstruction would not be possible*
