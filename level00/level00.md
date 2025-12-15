@@ -27,7 +27,7 @@ level00 search resulted in nothing interesting, so I changed my focus to the nam
         nottoohardhere
 </details>
 
-- Finally we run `su flag00` with this password and run `getflag` and get our token
+- Finally we run `su flag00` with this password and run `getflag` and get our token for the next level
 
 ---
 
