@@ -99,3 +99,8 @@ quif5eloekouj29ke0vouxean
 ```
 
 And we successfully printed the contents of the `token` file
+
+After this, we do `su flag08` and use our `token` as password then run getflag
+```console
+Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f
+```
