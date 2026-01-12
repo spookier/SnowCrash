@@ -11,7 +11,7 @@
 This repo contains my writeups and solutions for SnowCrash, an offensive security project at 42 School
 
 
-Each level required finding and exploiting a specific vulnerability from forensics, scripting, race conditions, reverse engineering, binary exploitation techniques to escalate privileges and grab the flag
+Each level required finding and exploiting a specific vulnerability from forensics, scripting, race conditions, reverse engineering and binary exploitation to escalate privileges and grab the flag
 
 
 | Level | Key Focus                                      | Link                          |
