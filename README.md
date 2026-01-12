@@ -1,14 +1,51 @@
-# SnowCrash
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/26566604-559b-4b95-8c25-ea0ecdfce446" width="700" alt="prepare to crash">
 
-## ☠️ 🚫  BEWARE, TARNISHED 🚫  ☠️
 
-This repository contains my thought process + the solutions for the SnowCrash project
+
+
+
+  
+## ☠️ 🚫  BEWARE TARNISHED 🚫  ☠️
+
+This repo contains my writeups and solutions for SnowCrash, an offensive security project at 42 School
+
+
+Each level required finding and exploiting a specific vulnerability from forensics, scripting, race conditions, reverse engineering, binary exploitation techniques to escalate privileges and grab the flag
+
+
+| Level | Key Focus                                      | Link                          |
+|-------|------------------------------------------------|-------------------------------|
+| 00    | Linux reconnaissance and basic cryptography    | [View](./level00)            |
+| 01    | Password hash cracking                         | [View](./level01)            |
+| 02    | Network packet forensics                     | [View](./level02)            |
+| 03    | PATH Interception Attack                | [View](./level03)            |
+| 04    | Command injection in CGI scripts             | [View](./level04)            |
+| 05    | Cron job misconfiguration exploitation         | [View](./level05)            |
+| 06    | PHP remote code execution                      | [View](./level06)            |
+| 07    | Argument injection in system()                     | [View](./level07)            |
+| 08    | Bypassing access with Symlink attack              | [View](./level08)            |
+| 09    | Behavioral analysis of custom encryption          | [View](./level09)            |
+| 10    | TOCTOU race condition exploitation             | [View](./level10)            |
+| 11    | Command injection + bypassing sanitization                  | [View](./level11)            |
+| 12    | Input processing bypass on a web server             | [View](./level12)            |
+| 13    | Debug and modify CPU registers to bypass security checks           | [View](./level13)            |
+| 14    | Advanced binary protection bypass               | [View](./level14)            |
+
+</div>
+
+---
+
+
+
 
 
 # Snowcrash VM Login Guide
 
 ### (NAT + Port Forward)  
 ### VirtualBox → SnowCrash → Settings → Network
+
+
 
 1 - Attached to: NAT
 
